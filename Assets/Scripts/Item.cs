@@ -25,7 +25,11 @@ public class Item : MonoBehaviour
 
     public void Delete()
     {
-        if (type == Type.General) AppManager.Instance._general.Remove(gameObject);
+        if (type == Type.General)
+        {
+            AppManager.Instance._general.Remove(gameObject);
+            AppManager.Instance._general[0].GetComponentInChildren<Button>().interactable = true;
+        }
         else AppManager.Instance._troops.Remove(gameObject);
 
         AppManager.Instance.UpdateElementsPositions();

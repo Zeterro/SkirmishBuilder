@@ -12,10 +12,9 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     }
 
     [Header("General")]
+    public List<Warscroll> _warscrolls = new List<Warscroll>();
     public List<GameObject> _general = new List<GameObject>();
     public List<GameObject> _troops = new List<GameObject>();
-    public GeneralWarscroll[] _generalOptions;
-    public TroopWarscroll[] _troopsOptions;
 
     [Header("Prefabs")]
     public GameObject _generalPrefab;
@@ -35,24 +34,15 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     private void Start()
     {
-        _generalOptions = new GeneralWarscroll[2];
-        _generalOptions[0] = new GeneralWarscroll("Chaos Sorcerer", 16);
-        _generalOptions[1] = new GeneralWarscroll("Chaos Lord", 28);
+        _warscrolls.Add(new TroopWarscroll("Chaos Warrior", 4));
+        _warscrolls.Add(new TroopWarscroll("Chaos Chosen", 8));
+        _warscrolls.Add(new GeneralWarscroll("Chaos Sorcerer", 16));
+        _warscrolls.Add(new GeneralWarscroll("Chaos Lord", 28));
 
-        _troopsOptions = new TroopWarscroll[4];
-        _troopsOptions[0] = new TroopWarscroll("Chaos Warrior", 4);
-        _troopsOptions[1] = new TroopWarscroll("Chaos Chosen", 8);
-        _troopsOptions[2] = new TroopWarscroll("Chaos Sorcerer", 16);
-        _troopsOptions[3] = new TroopWarscroll("Chaos Lord", 28);
-
-        for (int i = 0; i < _generalOptions.Length; i++)
+        for (int i = 0; i < _warscrolls.Count; i++)
         {
-            AddOption(Type.General, _generalOptions[i]._name, i);
-        }
-
-        for (int i = 0; i < _troopsOptions.Length; i++)
-        {
-            AddOption(Type.Troop, _troopsOptions[i]._name, i);
+            if (_warscrolls[i] is GeneralWarscroll) AddOption(Type.General, _warscrolls[i]._name, i);
+            AddOption(Type.Troop, _warscrolls[i]._name, i);
         }
 
         InstantiateHeaders();
@@ -79,13 +69,13 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         {
             prefab = _generalPrefab;
             parent = _generalPanel;
-            warscroll = _generalOptions[arg];
+            warscroll = _warscrolls[arg];
         }
         else
         {
             prefab = _troopsPrefab;
             parent = _troopsPanel;
-            warscroll = _troopsOptions[arg];
+            warscroll = _warscrolls[arg];
         }
 
         GameObject go = Instantiate(prefab, parent);
@@ -97,6 +87,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         {
             _general.Add(go);
             _generalTemplate.SetActive(false);
+            _general[0].GetComponentInChildren<Button>().interactable = false;
         }
         else
         {
@@ -105,6 +96,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         }
 
         UpdateElementsPositions();
+        UpdateOptions();
     }
 
     public void UpdateElementsPositions(Type type = Type.Both)
@@ -146,5 +138,13 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         go.transform.localScale = new Vector3(1, 1, 1);
         go.GetComponentInChildren<Text>().text = name;
         go.GetComponent<Button>().onClick.AddListener(() => AddElement(type, id));
+    }
+
+    public void UpdateOptions(Type type = Type.Both)
+    {
+        for (int i = 0; i < _troops.Count - 1; i++)
+        {
+            //if (_troops.Contains(_troopsOptions[i])) Debug.Log("WARSCROLL IS DUPLICATED");
+        }
     }
 }
