@@ -2111,8 +2111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _warscrolls: []
+  _usedWarscrolls: []
   _general: []
   _troops: []
+  _warsrollsGO: []
   _generalPrefab: {fileID: 1682593507608548, guid: 52b13bccc4f287c4cb435704d4f58b1d,
     type: 2}
   _generalHeaderPrefab: {fileID: 1056458859359190, guid: 221b6a735f6242748b619517c1a99b4b,

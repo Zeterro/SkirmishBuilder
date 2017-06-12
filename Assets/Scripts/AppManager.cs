@@ -13,8 +13,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     [Header("General")]
     public List<Warscroll> _warscrolls = new List<Warscroll>();
-    public List<GameObject> _general = new List<GameObject>();
-    public List<GameObject> _troops = new List<GameObject>();
+    public List<Warscroll> _usedWarscrolls = new List<Warscroll>();
+    public List<GameObject> _warscrollsGO = new List<GameObject>();
 
     [Header("Prefabs")]
     public GameObject _generalPrefab;
@@ -32,12 +32,18 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public int _spacing;
     public Vector2 _padding;
 
+    public Pool _generalPool;
+    public Pool _troopsPool;
+
     private void Start()
     {
-        _warscrolls.Add(new TroopWarscroll("Chaos Warrior", 4));
-        _warscrolls.Add(new TroopWarscroll("Chaos Chosen", 8));
+        _generalPool = new Pool(_generalPrefab, _generalPanel.parent.gameObject, 1);
+        _troopsPool = new Pool(_troopsPrefab, _troopsPanel.parent.gameObject, 10);
+
         _warscrolls.Add(new GeneralWarscroll("Chaos Sorcerer", 16));
         _warscrolls.Add(new GeneralWarscroll("Chaos Lord", 28));
+        _warscrolls.Add(new TroopWarscroll("Chaos Warrior", 4));
+        _warscrolls.Add(new TroopWarscroll("Chaos Chosen", 8));
 
         for (int i = 0; i < _warscrolls.Count; i++)
         {
@@ -50,12 +56,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     private void InstantiateHeaders()
     {
-        GameObject go = Instantiate(_troopsHeaderPrefab, _troopsPanel);
-        _troops.Add(go);
-
-        go = Instantiate(_generalHeaderPrefab, _generalPanel);
-        _general.Add(go);
-
+        Instantiate(_troopsHeaderPrefab, _troopsPanel);
+        Instantiate(_generalHeaderPrefab, _generalPanel);
         UpdateElementsPositions();
     }
 
@@ -63,68 +65,64 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     {
         GameObject prefab;
         Transform parent;
-        Warscroll warscroll;
+        GameObject go;
+        Item item;
+        Warscroll warscroll = _warscrolls[arg];
 
         if (type == Type.General)
         {
+            go = _generalPool.GetGameObject();
             prefab = _generalPrefab;
             parent = _generalPanel;
-            warscroll = _warscrolls[arg];
         }
         else
         {
+            go = _troopsPool.GetGameObject();
             prefab = _troopsPrefab;
             parent = _troopsPanel;
-            warscroll = _warscrolls[arg];
         }
 
-        GameObject go = Instantiate(prefab, parent);
+        go.transform.SetParent(parent);
+        go.name = warscroll._name;
 
-        Item item = go.GetComponent<Item>();
+        item = go.GetComponent<Item>();
         item._warscroll = warscroll;
+
+        _warscrollsGO.Add(go);
+        _usedWarscrolls.Add(warscroll);
 
         if (type == Type.General)
         {
-            _general.Add(go);
+            _generalPanel.GetChild(0).GetComponentInChildren<Button>().interactable = false;
             _generalTemplate.SetActive(false);
-            _general[0].GetComponentInChildren<Button>().interactable = false;
         }
-        else
-        {
-            _troops.Add(go);
-            _troopsTemplate.SetActive(false);
-        }
+        else _troopsTemplate.SetActive(false);
 
         UpdateElementsPositions();
         UpdateOptions();
     }
 
-    public void UpdateElementsPositions(Type type = Type.Both)
+    public void UpdateElementsPositions()
     {
-        int generalCount = _general.Count, troopsCount = _troops.Count;
+        int generalCount = _generalPanel.childCount, troopsCount = _troopsPanel.childCount;
         float elementHeight = 0;
 
-        if (type == Type.General || type == Type.Both)
+        for (int i = 0; i < generalCount; i++)
         {
-            for (int i = 0; i < generalCount; i++)
-            {
-                RectTransform rt = _general[i].GetComponent<RectTransform>();
-                rt.localPosition = new Vector2(_padding.x, -(rt.sizeDelta.y * i) - (_spacing * i));
-                if (elementHeight == 0) elementHeight = rt.sizeDelta.y;
-            }
-            _generalPanel.sizeDelta = new Vector2(_generalPanel.sizeDelta.x, (generalCount * elementHeight) + (_spacing * (generalCount - 1)));
+            RectTransform rt = _generalPanel.GetChild(i).GetComponent<RectTransform>();
+            rt.localPosition = new Vector2(_padding.x, -(rt.sizeDelta.y * i) - (_spacing * i));
+            if (elementHeight == 0) elementHeight = rt.sizeDelta.y;
         }
 
-        if (type == Type.Troop || type == Type.Both)
+        for (int i = 0; i < troopsCount; i++)
         {
-            for (int i = 0; i < troopsCount; i++)
-            {
-                RectTransform rt = _troops[i].GetComponent<RectTransform>();
-                rt.localPosition = new Vector2(_padding.x, -(rt.sizeDelta.y * i) - (_spacing * i));
-                if (elementHeight == 0) elementHeight = rt.sizeDelta.y;
-            }
-            _troopsPanel.sizeDelta = new Vector2(_troopsPanel.sizeDelta.x, (troopsCount * elementHeight) + (_spacing * (troopsCount - 1)));
+            RectTransform rt = _troopsPanel.GetChild(i).GetComponent<RectTransform>();
+            rt.localPosition = new Vector2(_padding.x, -(rt.sizeDelta.y * i) - (_spacing * i));
+            if (elementHeight == 0) elementHeight = rt.sizeDelta.y;
         }
+
+        _generalPanel.sizeDelta = new Vector2(_generalPanel.sizeDelta.x, (generalCount * elementHeight) + (_spacing * (generalCount - 1)));
+        _troopsPanel.sizeDelta = new Vector2(_troopsPanel.sizeDelta.x, (troopsCount * elementHeight) + (_spacing * (troopsCount - 1)));
     }
 
     public void AddOption(Type type, string name, int id)
@@ -142,9 +140,12 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     public void UpdateOptions(Type type = Type.Both)
     {
-        for (int i = 0; i < _troops.Count - 1; i++)
-        {
-            //if (_troops.Contains(_troopsOptions[i])) Debug.Log("WARSCROLL IS DUPLICATED");
-        }
+        //for (int i = 1; i < _troops.Count - 1; i++)
+        //{
+        //    Warscroll warscroll = _troops[i].GetComponent<Item>()._warscroll;
+        //    if (_usedWarscrolls.Contains(warscroll)) Debug.Log("ALREADY USED");
+        //    warscroll = _general[i].GetComponent<Item>()._warscroll;
+        //    if (_usedWarscrolls.Contains(warscroll)) Debug.Log("ALREADY USED");
+        //}
     }
 }

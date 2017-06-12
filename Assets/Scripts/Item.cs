@@ -27,12 +27,16 @@ public class Item : MonoBehaviour
     {
         if (type == Type.General)
         {
-            AppManager.Instance._general.Remove(gameObject);
-            AppManager.Instance._general[0].GetComponentInChildren<Button>().interactable = true;
+            AppManager.Instance._generalPool.ReturnGameObject(gameObject);
+            AppManager.Instance._generalPanel.GetChild(0).GetComponentInChildren<Button>().interactable = true;
         }
-        else AppManager.Instance._troops.Remove(gameObject);
-
+        else
+        {
+            AppManager.Instance._troopsPool.ReturnGameObject(gameObject);
+        }
+        AppManager.Instance._warscrollsGO.Remove(gameObject);
+        AppManager.Instance._usedWarscrolls.Remove(_warscroll);
         AppManager.Instance.UpdateElementsPositions();
-        Destroy(gameObject);
+        Debug.Log("Remove element");
     }
 }
