@@ -2110,10 +2110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5efba807f0679b44864b5d8765d54eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _warscrolls: []
   _general: []
   _troops: []
-  _generalOptions: []
-  _troopsOptions: []
   _generalPrefab: {fileID: 1682593507608548, guid: 52b13bccc4f287c4cb435704d4f58b1d,
     type: 2}
   _generalHeaderPrefab: {fileID: 1056458859359190, guid: 221b6a735f6242748b619517c1a99b4b,
