@@ -3,10 +3,23 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-    public void Destroy()
+    private RectTransform _rectTrans;
+
+    public Warscroll _warscroll;
+    public Text _name, _cost;
+    public Button _deleteButton;
+
+    void Start()
     {
-        AppManager.Instance._general = null;
-        AppManager.Instance._generalButton.interactable = true;
+        _rectTrans = GetComponent<RectTransform>();
+        _name.text = _warscroll._name;
+        _cost.text = _warscroll._cost.ToString();
+    }
+
+    public void Delete()
+    {
+        AppManager.Instance._troops.Remove(gameObject);
+        AppManager.Instance.UpdateTroops();
         Destroy(gameObject);
     }
 }
