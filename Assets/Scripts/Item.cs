@@ -5,6 +5,13 @@ public class Item : MonoBehaviour
 {
     private RectTransform _rectTrans;
 
+    public enum Type
+    {
+        General,
+        Warscroll
+    }
+
+    public Type type;
     public Warscroll _warscroll;
     public Text _name, _cost;
     public Button _deleteButton;
@@ -18,8 +25,10 @@ public class Item : MonoBehaviour
 
     public void Delete()
     {
-        AppManager.Instance._troops.Remove(gameObject);
-        AppManager.Instance.UpdateTroops();
+        if (type == Type.General) AppManager.Instance._general.Remove(gameObject);
+        else AppManager.Instance._troops.Remove(gameObject);
+
+        AppManager.Instance.UpdateElementsPositions();
         Destroy(gameObject);
     }
 }
