@@ -23,7 +23,7 @@ public class Item : MonoBehaviour
 
     private void OnEnable()
     {
-        _number = 0;
+        _number = 1;
         UpdateItem();
     }
 
