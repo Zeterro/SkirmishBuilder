@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1169518110}
   m_HandleRect: {fileID: 1169518109}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1387,6 +1387,7 @@ Transform:
   m_Children:
   - {fileID: 1573116117}
   - {fileID: 2046315110}
+  - {fileID: 1646587827}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2110,7 +2111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5efba807f0679b44864b5d8765d54eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warscrolls: []
   _warscrollsGO: []
   _options: []
   _generalPrefab: {fileID: 1682593507608548, guid: 52b13bccc4f287c4cb435704d4f58b1d,
@@ -2205,6 +2205,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1640156308}
+--- !u!1 &1646587826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1646587827}
+  - component: {fileID: 1646587828}
+  m_Layer: 0
+  m_Name: XMLManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1646587827
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1646587826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 753978966}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1646587828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1646587826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f0e67876709154ca71a05c410076b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1675239269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,7 +2774,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 16972856}
   m_HandleRect: {fileID: 16972855}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
