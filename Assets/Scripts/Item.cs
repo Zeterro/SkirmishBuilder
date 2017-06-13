@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
     public Text _name, _cost;
     public Button _deleteButton;
 
-    void Start()
+    public void UpdateItem()
     {
         _name.text = _warscroll._name;
         _cost.text = _warscroll._cost.ToString();
@@ -39,6 +39,6 @@ public class Item : MonoBehaviour
 
         AppManager.Instance._warscrollsGO.Remove(gameObject);
         AppManager.Instance.UpdateElementsPositions();
-        Debug.Log("Remove element");
+        Debug.Log("Remove warscroll: " + _warscroll._name);
     }
 }

@@ -12,7 +12,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     }
 
     [Header("General")]
-    public List<Warscroll> _warscrolls = new List<Warscroll>();
+    public Dictionary<string, Warscroll> _warscrolls = new Dictionary<string, Warscroll>();
     public List<GameObject> _warscrollsGO = new List<GameObject>();
     public List<GameObject> _options = new List<GameObject>();
 
@@ -43,15 +43,22 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _troopsPool = new Pool(_troopsPrefab, _troopsPanel.parent.gameObject, 10);
         _optionsPool = new Pool(_optionsPrefab, _generalTemplate.transform.parent.gameObject, 10);
 
-        _warscrolls.Add(new GeneralWarscroll("Chaos Sorcerer", 16));
-        _warscrolls.Add(new GeneralWarscroll("Chaos Lord", 28));
-        _warscrolls.Add(new TroopWarscroll("Chaos Warrior", 4));
-        _warscrolls.Add(new TroopWarscroll("Chaos Chosen", 8));
+        GeneralWarscroll gw = new GeneralWarscroll("Chaos Sorcerer", 16);
+        _warscrolls.Add(gw._id, gw);
 
-        for (int i = 0; i < _warscrolls.Count; i++)
+        gw = new GeneralWarscroll("Chaos Lord", 28);
+        _warscrolls.Add(gw._id, gw);
+
+        TroopWarscroll tw = new TroopWarscroll("Chaos Warrior", 4);
+        _warscrolls.Add(tw._id, tw);
+
+        tw = new TroopWarscroll("Chaos Chosen", 8); 
+        _warscrolls.Add(tw._id, tw);
+
+        foreach(KeyValuePair<string, Warscroll> item in _warscrolls)
         {
-            if (_warscrolls[i] is GeneralWarscroll) AddOption(Type.General, _warscrolls[i]._name, i);
-            AddOption(Type.Troop, _warscrolls[i]._name, i);
+            if (item.Value is GeneralWarscroll) AddOption(Type.General, item.Value);
+            AddOption(Type.Troop, item.Value);
         }
 
         InstantiateHeaders();
@@ -67,12 +74,11 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         UpdateElementsPositions();
     }
 
-    public void AddElement(Type type, int arg)
+    public void AddElement(Type type, Warscroll warscroll)
     {
         Transform parent;
         GameObject go;
         Item item;
-        Warscroll warscroll = _warscrolls[arg];
 
         if (type == Type.General)
         {
@@ -91,6 +97,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
         item = go.GetComponent<Item>();
         item._warscroll = warscroll;
+        item.UpdateItem();
 
         _warscrollsGO.Add(go);
 
@@ -102,6 +109,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         else _troopsTemplate.SetActive(false);
 
         UpdateElementsPositions();
+        Debug.Log("Add warscroll: " + warscroll._name);
     }
 
     public void UpdateElementsPositions()
@@ -127,7 +135,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _troopsPanel.sizeDelta = new Vector2(_troopsPanel.sizeDelta.x, (troopsCount * elementHeight) + (_spacing * (troopsCount - 1)));
     }
 
-    public void AddOption(Type type, string name, int id)
+    public void AddOption(Type type, Warscroll warscroll)
     {
         RectTransform parent;
         if (type == Type.General) parent = _generalTemplateContent;
@@ -136,9 +144,9 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         GameObject go = _optionsPool.GetGameObject();
         go.transform.SetParent(parent);
         go.transform.localScale = new Vector3(1, 1, 1);
-        go.GetComponentInChildren<Text>().text = name;
-        go.GetComponent<Button>().onClick.AddListener(() => AddElement(type, id));
-        go.name = name;
+        go.GetComponent<Button>().onClick.AddListener(() => AddElement(type, warscroll));
+        go.GetComponentInChildren<Text>().text = warscroll._name;
+        go.name = warscroll._name;
 
         _options.Add(go);
     }
@@ -151,7 +159,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
             {
                 if (_options[j].name.Equals(_warscrollsGO[i].name))
                 {
-                    Debug.Log("Deactivate option " + _options[j].name);
+                    //Debug.Log("Deactivate option " + _options[j].name);
                     _options[j].GetComponent<Button>().interactable = false;
                 }
             }
