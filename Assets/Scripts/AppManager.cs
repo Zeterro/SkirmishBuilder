@@ -35,11 +35,13 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     public Pool _generalPool;
     public Pool _troopsPool;
+    public Pool _optionsPool;
 
     private void Start()
     {
         _generalPool = new Pool(_generalPrefab, _generalPanel.parent.gameObject, 1);
         _troopsPool = new Pool(_troopsPrefab, _troopsPanel.parent.gameObject, 10);
+        _optionsPool = new Pool(_optionsPrefab, _generalTemplate.transform.parent.gameObject, 10);
 
         _warscrolls.Add(new GeneralWarscroll("Chaos Sorcerer", 16));
         _warscrolls.Add(new GeneralWarscroll("Chaos Lord", 28));
@@ -57,8 +59,11 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     private void InstantiateHeaders()
     {
-        Instantiate(_troopsHeaderPrefab, _troopsPanel);
-        Instantiate(_generalHeaderPrefab, _generalPanel);
+        GameObject go;
+        go = Instantiate(_troopsHeaderPrefab, _troopsPanel);
+        go.name = "TroopsHeader";
+        go = Instantiate(_generalHeaderPrefab, _generalPanel);
+        go.name = "GeneralHeader";
         UpdateElementsPositions();
     }
 
@@ -127,7 +132,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         if (type == Type.General) parent = _generalTemplateContent;
         else parent = _troopsTemplateContent;
 
-        GameObject go = Instantiate(_optionsPrefab);
+        GameObject go = _optionsPool.GetGameObject();
         go.transform.SetParent(parent);
         go.transform.localScale = new Vector3(1, 1, 1);
         go.GetComponentInChildren<Text>().text = name;
