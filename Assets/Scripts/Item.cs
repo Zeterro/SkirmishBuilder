@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-    private RectTransform _rectTrans;
-
     public enum Type
     {
         General,
@@ -18,7 +16,6 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-        _rectTrans = GetComponent<RectTransform>();
         _name.text = _warscroll._name;
         _cost.text = _warscroll._cost.ToString();
     }
@@ -34,8 +31,13 @@ public class Item : MonoBehaviour
         {
             AppManager.Instance._troopsPool.ReturnGameObject(gameObject);
         }
+
+        for (int i = 0; i < AppManager.Instance._options.Count; i++)
+        {
+            if (AppManager.Instance._options[i].name.Equals(gameObject.name)) AppManager.Instance._options[i].GetComponent<Button>().interactable = true;
+        }
+
         AppManager.Instance._warscrollsGO.Remove(gameObject);
-        AppManager.Instance._usedWarscrolls.Remove(_warscroll);
         AppManager.Instance.UpdateElementsPositions();
         Debug.Log("Remove element");
     }

@@ -13,8 +13,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     [Header("General")]
     public List<Warscroll> _warscrolls = new List<Warscroll>();
-    public List<Warscroll> _usedWarscrolls = new List<Warscroll>();
     public List<GameObject> _warscrollsGO = new List<GameObject>();
+    public List<GameObject> _options = new List<GameObject>();
 
     [Header("Prefabs")]
     public GameObject _generalPrefab;
@@ -28,7 +28,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public RectTransform _generalTemplateContent;
     public RectTransform _troopsPanel;
     public RectTransform _troopsTemplateContent;
-    public GameObject _generalTemplate, _troopsTemplate;
+    public GameObject _generalTemplate;
+    public GameObject _troopsTemplate;
     public int _spacing;
     public Vector2 _padding;
 
@@ -63,7 +64,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     public void AddElement(Type type, int arg)
     {
-        GameObject prefab;
         Transform parent;
         GameObject go;
         Item item;
@@ -72,13 +72,11 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         if (type == Type.General)
         {
             go = _generalPool.GetGameObject();
-            prefab = _generalPrefab;
             parent = _generalPanel;
         }
         else
         {
             go = _troopsPool.GetGameObject();
-            prefab = _troopsPrefab;
             parent = _troopsPanel;
         }
 
@@ -89,7 +87,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         item._warscroll = warscroll;
 
         _warscrollsGO.Add(go);
-        _usedWarscrolls.Add(warscroll);
 
         if (type == Type.General)
         {
@@ -99,7 +96,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         else _troopsTemplate.SetActive(false);
 
         UpdateElementsPositions();
-        UpdateOptions();
     }
 
     public void UpdateElementsPositions()
@@ -136,16 +132,23 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         go.transform.localScale = new Vector3(1, 1, 1);
         go.GetComponentInChildren<Text>().text = name;
         go.GetComponent<Button>().onClick.AddListener(() => AddElement(type, id));
+        go.name = name;
+
+        _options.Add(go);
     }
 
     public void UpdateOptions(Type type = Type.Both)
     {
-        //for (int i = 1; i < _troops.Count - 1; i++)
-        //{
-        //    Warscroll warscroll = _troops[i].GetComponent<Item>()._warscroll;
-        //    if (_usedWarscrolls.Contains(warscroll)) Debug.Log("ALREADY USED");
-        //    warscroll = _general[i].GetComponent<Item>()._warscroll;
-        //    if (_usedWarscrolls.Contains(warscroll)) Debug.Log("ALREADY USED");
-        //}
+        for (int i = 0; i < _warscrollsGO.Count; i++)
+        {
+            for (int j = 0; j < _options.Count; j++)
+            {
+                if (_options[j].name.Equals(_warscrollsGO[i].name))
+                {
+                    _options[j].GetComponent<Button>().interactable = false;
+                    Debug.Log("Deactivate option " + _options[j].name);
+                }
+            }
+        }
     }
 }
