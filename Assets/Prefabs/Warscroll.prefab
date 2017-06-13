@@ -228,9 +228,15 @@ MonoBehaviour:
     _name: 
     _id: 
     _cost: 0
+    _maxNumber: 0
+  _number: 1
   _name: {fileID: 114184369324637474}
   _cost: {fileID: 114456960304815914}
   _deleteButton: {fileID: 114712535701110016}
+  _numberText: {fileID: 114913249322230014}
+  _numberButtons:
+  - {fileID: 114929288570988490}
+  - {fileID: 114249172253578120}
 --- !u!114 &114184369324637474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +308,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114624833285257914}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114176862969939242}
+        m_MethodName: Remove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114374676390745284
@@ -635,7 +652,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114808587224723420}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114176862969939242}
+        m_MethodName: Add
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!222 &222240979917399258

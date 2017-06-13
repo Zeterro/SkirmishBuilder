@@ -49,13 +49,13 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         gw = new GeneralWarscroll("Chaos Lord", 28);
         _warscrolls.Add(gw._id, gw);
 
-        TroopWarscroll tw = new TroopWarscroll("Chaos Warrior", 4);
+        TroopWarscroll tw = new TroopWarscroll("Chaos Warrior", 4, 10);
         _warscrolls.Add(tw._id, tw);
 
-        tw = new TroopWarscroll("Chaos Chosen", 8); 
+        tw = new TroopWarscroll("Chaos Chosen", 8, 10);
         _warscrolls.Add(tw._id, tw);
 
-        foreach(KeyValuePair<string, Warscroll> item in _warscrolls)
+        foreach (KeyValuePair<string, Warscroll> item in _warscrolls)
         {
             if (item.Value is GeneralWarscroll) AddOption(Type.General, item.Value);
             AddOption(Type.Troop, item.Value);

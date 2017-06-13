@@ -1,10 +1,7 @@
 ﻿[System.Serializable]
 public class TroopWarscroll : Warscroll
 {
-    int _number;
-
-    public TroopWarscroll(string name, int cost, int number = 1) : base(name, cost)
+    public TroopWarscroll(string name, int cost, int maxNumber = 1) : base(name, cost, maxNumber)
     {
-        _number = number;
     }
 }
