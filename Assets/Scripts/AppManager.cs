@@ -12,7 +12,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     }
 
     [Header("General")]
-    public Dictionary<string, Warscroll> _warscrolls = new Dictionary<string, Warscroll>();
     public List<GameObject> _warscrollsGO = new List<GameObject>();
     public List<GameObject> _options = new List<GameObject>();
 
@@ -43,19 +42,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _troopsPool = new Pool(_troopsPrefab, _troopsPanel.parent.gameObject, 10);
         _optionsPool = new Pool(_optionsPrefab, _generalTemplate.transform.parent.gameObject, 10);
 
-        GeneralWarscroll gw = new GeneralWarscroll("Chaos Sorcerer", 16);
-        _warscrolls.Add(gw._id, gw);
-
-        gw = new GeneralWarscroll("Chaos Lord", 28);
-        _warscrolls.Add(gw._id, gw);
-
-        TroopWarscroll tw = new TroopWarscroll("Chaos Warrior", 4, 10);
-        _warscrolls.Add(tw._id, tw);
-
-        tw = new TroopWarscroll("Chaos Chosen", 8, 10);
-        _warscrolls.Add(tw._id, tw);
-
-        foreach (KeyValuePair<string, Warscroll> item in _warscrolls)
+        foreach (KeyValuePair<string, Warscroll> item in DataManager.Instance._warscrolls)
         {
             if (item.Value is GeneralWarscroll) AddOption(Type.General, item.Value);
             AddOption(Type.Troop, item.Value);

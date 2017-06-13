@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class DataManager : MonoBehaviourSingleton<DataManager>
@@ -40,8 +41,24 @@ public class DataManager : MonoBehaviourSingleton<DataManager>
         }
     }
 
+    public Dictionary<string, Warscroll> _warscrolls = new Dictionary<string, Warscroll>();
     public Dropdown _allianceDrop;
     public Dropdown _factionDrop;
+
+    private void Start()
+    {
+        GeneralWarscroll gw = new GeneralWarscroll("Chaos Sorcerer", 16);
+        _warscrolls.Add(gw._id, gw);
+
+        gw = new GeneralWarscroll("Chaos Lord", 28);
+        _warscrolls.Add(gw._id, gw);
+
+        TroopWarscroll tw = new TroopWarscroll("Chaos Warrior", 4, 10);
+        _warscrolls.Add(tw._id, tw);
+
+        tw = new TroopWarscroll("Chaos Chosen", 8, 10);
+        _warscrolls.Add(tw._id, tw);
+    }
 
     public void ChangeAlliance()
     {
