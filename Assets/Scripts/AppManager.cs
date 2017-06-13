@@ -145,7 +145,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     public void UpdateOptions(Type type = Type.Both)
     {
-        int count = 0;
         for (int i = 0; i < _warscrollsGO.Count; i++)
         {
             for (int j = 0; j < _options.Count; j++)
@@ -154,8 +153,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
                 {
                     Debug.Log("Deactivate option " + _options[j].name);
                     _options[j].GetComponent<Button>().interactable = false;
-                    count++;
-                    if (count >= 2) return;
                 }
             }
         }
