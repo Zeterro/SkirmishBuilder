@@ -785,6 +785,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1682593507608548, guid: 52b13bccc4f287c4cb435704d4f58b1d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52b13bccc4f287c4cb435704d4f58b1d, type: 2}
   m_IsPrefabParent: 0
@@ -1790,6 +1794,21 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114409839896473018, guid: dc0b2ff43ddeffa41b4efebfbaaa9e1f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409839896473018, guid: dc0b2ff43ddeffa41b4efebfbaaa9e1f,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.64705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409839896473018, guid: dc0b2ff43ddeffa41b4efebfbaaa9e1f,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.8685598
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc0b2ff43ddeffa41b4efebfbaaa9e1f, type: 2}
   m_IsPrefabParent: 0
@@ -2586,6 +2605,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1056458859359190, guid: 221b6a735f6242748b619517c1a99b4b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 221b6a735f6242748b619517c1a99b4b, type: 2}
   m_IsPrefabParent: 0
@@ -2695,6 +2718,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323130788325360, guid: 796e9666ef080e8459cf412667b680af, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 796e9666ef080e8459cf412667b680af, type: 2}
