@@ -86,6 +86,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         }
 
         go.transform.SetParent(parent);
+        go.transform.localScale = new Vector3(1, 1, 1);
         go.name = warscroll._name;
 
         item = go.GetComponent<Item>();
