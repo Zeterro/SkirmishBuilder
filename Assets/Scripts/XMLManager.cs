@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class XMLManager : MonoBehaviour
     public void LoadWarscrolls()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(WarscrollDatabase));
-        var database = Resources.LoadAll("WarscrollDatabase", typeof(TextAsset)).Cast<TextAsset>().ToArray();
+        TextAsset[] database = Resources.LoadAll<TextAsset>("WarscrollDatabase");
 
         for (int i = 0; i < database.Length; i++)
         {
