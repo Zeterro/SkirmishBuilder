@@ -4,13 +4,6 @@ using UnityEngine.UI;
 
 public class AppManager : MonoBehaviourSingleton<AppManager>
 {
-    public enum Type
-    {
-        General,
-        Troop,
-        Both
-    }
-
     [Header("General")]
     public List<GameObject> _warscrollsGO = new List<GameObject>();
     public List<GameObject> _options = new List<GameObject>();
@@ -42,12 +35,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _troopsPool = new Pool(_troopsPrefab, _troopsPanel.parent.gameObject, 10);
         _optionsPool = new Pool(_optionsPrefab, _generalTemplate.transform.parent.gameObject, 10);
 
-        foreach (KeyValuePair<string, Warscroll> item in DataManager.Instance._warscrolls)
-        {
-            if (item.Value is GeneralWarscroll) AddOption(Type.General, item.Value);
-            AddOption(Type.Troop, item.Value);
-        }
-
         InstantiateHeaders();
     }
 
@@ -61,7 +48,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         UpdateElementsPositions();
     }
 
-    public void AddElement(Type type, Warscroll warscroll)
+    public void AddElement(Warscroll warscroll, Type type)
     {
         Transform parent;
         GameObject go;
@@ -122,23 +109,39 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _troopsPanel.sizeDelta = new Vector2(_troopsPanel.sizeDelta.x, (troopsCount * elementHeight) + (_spacing * (troopsCount - 1)));
     }
 
-    public void AddOption(Type type, Warscroll warscroll)
+    public void AddWarscrollOptions(List<Warscroll> warscrolls)
     {
-        RectTransform parent;
-        if (type == Type.General) parent = _generalTemplateContent;
-        else parent = _troopsTemplateContent;
+        ClearWarscrollsOptions();
 
+        for (int i = 0; i < warscrolls.Count; i++)
+        {
+            if (warscrolls[i]._type == Type.General) AddWarscrollOption(warscrolls[i], _generalTemplateContent, Type.General);
+            AddWarscrollOption(warscrolls[i], _troopsTemplateContent, Type.Warscroll);
+        }
+    }
+
+    public void ClearWarscrollsOptions()
+    {
+        for (int i = 0; i < _options.Count; i++)
+        {
+            _optionsPool.ReturnGameObject(_options[i]);
+        }
+        _options.Clear();
+    }
+
+    public void AddWarscrollOption(Warscroll warscroll, Transform parent, Type type)
+    {
         GameObject go = _optionsPool.GetGameObject();
         go.transform.SetParent(parent);
         go.transform.localScale = new Vector3(1, 1, 1);
-        go.GetComponent<Button>().onClick.AddListener(() => AddElement(type, warscroll));
+        go.GetComponent<Button>().onClick.AddListener(() => AddElement(warscroll, type));
         go.GetComponentInChildren<Text>().text = warscroll._name;
         go.name = warscroll._name;
 
         _options.Add(go);
     }
 
-    public void UpdateOptions(Type type = Type.Both)
+    public void UpdateWarscrollOptionsAvailability()
     {
         for (int i = 0; i < _warscrollsGO.Count; i++)
         {

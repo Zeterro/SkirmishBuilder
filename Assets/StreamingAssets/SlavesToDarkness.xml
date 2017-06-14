@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Chaos" Faction="Slaves to Darkness">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Chaos Lord</_name>
+      <_type>General</_type>
+      <_cost>16</_cost>
+      <_maxNumber>1</_maxNumber>
+    </Warscroll>
+    <Warscroll>
+      <_name>Chaos Warrior</_name>
+      <_type>Warscroll</_type>
+      <_cost>4</_cost>
+      <_maxNumber>10</_maxNumber>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>

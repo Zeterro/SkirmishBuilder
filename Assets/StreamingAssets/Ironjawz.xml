@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Destruction" Faction="Ironjawz">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Orruk Megaboss</_name>
+      <_type>General</_type>
+      <_cost>16</_cost>
+      <_maxNumber>1</_maxNumber>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>

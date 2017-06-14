@@ -684,7 +684,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Select Faction
+  m_Text: 
 --- !u!222 &181330506
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1582,15 +1582,13 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Select Faction
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 620950762}
-        m_MethodName: ChangeFaction
-        m_Mode: 1
+        m_MethodName: SelectFaction
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1937,7 +1935,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _alliance: 0
-  _faction: 0
+  _warscrollDB: []
+  _warscrolls: []
+  _factionOptions: []
   _allianceDrop: {fileID: 1675387605}
   _factionDrop: {fileID: 420032758}
 --- !u!1 &629546420

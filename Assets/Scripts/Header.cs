@@ -24,7 +24,7 @@ public class Header : MonoBehaviour
         if (_type == Type.General) AppManager.Instance._troopsTemplate.SetActive(false);
         else AppManager.Instance._generalTemplate.SetActive(false);
 
-        AppManager.Instance.UpdateOptions();
+        AppManager.Instance.UpdateWarscrollOptionsAvailability();
 
         _template.SetActive(!_template.activeSelf);
     }
