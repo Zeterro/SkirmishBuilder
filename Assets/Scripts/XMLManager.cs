@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -12,15 +13,13 @@ public class XMLManager : MonoBehaviour
     public void LoadWarscrolls()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(WarscrollDatabase));
+        var database = Resources.LoadAll("WarscrollDatabase", typeof(TextAsset)).Cast<TextAsset>().ToArray();
 
-        string filePath = Application.streamingAssetsPath;
-        DirectoryInfo dirInfo = new DirectoryInfo(filePath);
-        FileStream stream;
-        foreach (var file in dirInfo.GetFiles("*.xml"))
+        for (int i = 0; i < database.Length; i++)
         {
-            stream = new FileStream(Application.streamingAssetsPath + "/" + file.Name, FileMode.Open);
-            DataManager.Instance._warscrollDB.Add(serializer.Deserialize(stream) as WarscrollDatabase);
-            stream.Close();
+            Debug.Log("Loaded: " + database[i].name);
+            var reader = new StringReader(database[i].text);
+            DataManager.Instance._warscrollDB.Add(serializer.Deserialize(reader) as WarscrollDatabase);
         }
 
         DataManager.Instance.AddFactionsOptions();

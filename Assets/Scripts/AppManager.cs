@@ -132,9 +132,12 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public void AddWarscrollOption(Warscroll warscroll, Transform parent, Type type)
     {
         GameObject go = _optionsPool.GetGameObject();
+        Button button = go.GetComponent<Button>();
         go.transform.SetParent(parent);
         go.transform.localScale = new Vector3(1, 1, 1);
-        go.GetComponent<Button>().onClick.AddListener(() => AddElement(warscroll, type));
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => AddElement(warscroll, type));
+        button.interactable = true;
         go.GetComponentInChildren<Text>().text = warscroll._name;
         go.name = warscroll._name;
 
