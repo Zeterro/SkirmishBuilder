@@ -104,6 +104,14 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         Debug.Log("Add warscroll: " + warscroll._name);
     }
 
+    public void ClearAllElements()
+    {
+        for (int i = _warscrollsGO.Count - 1; i >= 0 ; i--)
+        {
+            _warscrollsGO[i].GetComponent<Item>().Delete();
+        }
+    }
+
     public void UpdateElementsPositions()
     {
         int generalCount = _generalPanel.childCount, troopsCount = _troopsPanel.childCount;
