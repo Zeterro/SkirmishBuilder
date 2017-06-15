@@ -226,6 +226,7 @@ MonoBehaviour:
   type: 1
   _warscroll:
     _name: 
+    _type: 0
     _id: 
     _cost: 0
     _maxNumber: 0
@@ -859,7 +860,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 320, y: 30}
+  m_SizeDelta: {x: 350, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224683000421811528
 RectTransform:
