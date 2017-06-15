@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     [Header("General")]
     public List<GameObject> _warscrollsGO = new List<GameObject>();
     public List<GameObject> _options = new List<GameObject>();
+    public int _maxRenown;
+    public int _spentRenown;
 
     [Header("Prefabs")]
     public GameObject _generalPrefab;
@@ -22,6 +25,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public RectTransform _troopsTemplateContent;
     public GameObject _generalTemplate;
     public GameObject _troopsTemplate;
+    public Text _totalText;
+    public InputField _maxRenownInput;
     public int _spacing;
     public Vector2 _padding;
 
@@ -36,6 +41,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _optionsPool = new Pool(_optionsPrefab, _generalTemplate.transform.parent.gameObject, 10);
 
         InstantiateHeaders();
+        UpdateTotalRenown();
     }
 
     private void InstantiateHeaders()
@@ -83,6 +89,8 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         else _troopsTemplate.SetActive(false);
 
         UpdateElementsPositions();
+        UpdateTotalRenown();
+
         Debug.Log("Add warscroll: " + warscroll._name);
     }
 
@@ -132,30 +140,84 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public void AddWarscrollOption(Warscroll warscroll, Transform parent, Type type)
     {
         GameObject go = _optionsPool.GetGameObject();
-        Button button = go.GetComponent<Button>();
+        Option option = go.GetComponent<Option>();
+        option._warscroll = warscroll;
+        option.UpdateOption(type);
+
+        go.name = warscroll._name;
         go.transform.SetParent(parent);
         go.transform.localScale = new Vector3(1, 1, 1);
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => AddElement(warscroll, type));
-        button.interactable = true;
-        go.GetComponentInChildren<Text>().text = warscroll._name;
-        go.name = warscroll._name;
 
         _options.Add(go);
     }
 
     public void UpdateWarscrollOptionsAvailability()
     {
-        for (int i = 0; i < _warscrollsGO.Count; i++)
+        //List<string> used = new List<string>();
+        //for (int i = 0; i < _warscrollsGO.Count; i++)
+        //{
+        //    used.Add(_warscrollsGO[i].name);
+        //}
+
+        //List<string> options = new List<string>();
+        //for (int i = 0; i < _options.Count; i++)
+        //{
+        //    options.Add(_options[i].name);
+        //}
+
+        //List<string> duplicates = options.Intersect(used).ToList();
+
+        //for (int i = 0; i < duplicates.Count; i++)
+        //{
+        //    Debug.Log(duplicates[i]);
+        //    _options.Where(arg => arg.name == duplicates[i]).SingleOrDefault().GetComponent<Button>().interactable = false;
+        //}
+
+        for (int j = 0; j < _options.Count; j++)
         {
-            for (int j = 0; j < _options.Count; j++)
+            for (int i = 0; i < _warscrollsGO.Count; i++)
             {
-                if (_options[j].name.Equals(_warscrollsGO[i].name))
+                if (_options[j].name.Equals(_warscrollsGO[i].name) || int.Parse(_options[j].GetComponent<Option>()._cost.text) + _spentRenown >= _maxRenown)
                 {
-                    //Debug.Log("Deactivate option " + _options[j].name);
+                    //Debug.Log("Deactivate option " + _options[j].name + " " + _options[j].name.Equals(_warscrollsGO[i].name));
                     _options[j].GetComponent<Button>().interactable = false;
                 }
+
+                //if (_options[j].name.Equals(_warscrollsGO[i].name))
+                //{
+                //    _options[j].GetComponent<Button>().interactable = false;
+
+                //    if (int.Parse(_options[j].GetComponent<Option>()._cost.text) + _spentRenown <= _maxRenown && _options[j].name.Equals(_warscrollsGO[i].name) == false)
+                //    {
+                //        Debug.Log(_options[j].name + " " + (int.Parse(_options[j].GetComponent<Option>()._cost.text) + _spentRenown) + " " + _options[j].name.Equals(_warscrollsGO[i].name));
+                //        _options[j].GetComponent<Button>().interactable = true;
+                //    }
+                //}
             }
         }
+    }
+
+    public void UpdateTotalRenown()
+    {
+        int total = 0;
+
+        for (int i = 0; i < _warscrollsGO.Count; i++)
+        {
+            Item item = _warscrollsGO[i].GetComponent<Item>();
+            total += (item._warscroll._cost * item._number);
+        }
+
+        _spentRenown = total;
+        _totalText.text = _spentRenown + "/";
+    }
+
+    public void UpdateMaxRenown()
+    {
+        if (_maxRenownInput.text != "")
+        {
+            _maxRenown = int.Parse(_maxRenownInput.text);
+        }
+        else _maxRenown = 0;
+        Debug.Log("Changed max renown to: " + _maxRenown);
     }
 }

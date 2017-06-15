@@ -58,10 +58,11 @@ public class Item : MonoBehaviour
 
     public void Add()
     {
-        if (_number < _warscroll._maxNumber)
+        if (_number < _warscroll._maxNumber && _warscroll._cost + AppManager.Instance._spentRenown <= AppManager.Instance._maxRenown)
         {
             _number++;
-            UpdateItem(); 
+            UpdateItem();
+            AppManager.Instance.UpdateTotalRenown();
         }
     }
 
@@ -71,6 +72,7 @@ public class Item : MonoBehaviour
         {
             _number--;
             UpdateItem(); 
+            AppManager.Instance.UpdateTotalRenown();
         }
     }
 }

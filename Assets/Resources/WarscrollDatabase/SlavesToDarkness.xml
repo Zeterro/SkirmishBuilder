@@ -13,5 +13,11 @@
       <_cost>4</_cost>
       <_maxNumber>10</_maxNumber>
     </Warscroll>
+    <Warscroll>
+      <_name>Chaos Chosen</_name>
+      <_type>Warscroll</_type>
+      <_cost>8</_cost>
+      <_maxNumber>5</_maxNumber>
+    </Warscroll>
   </Warscrolls>
 </WarscrollDatabase>
