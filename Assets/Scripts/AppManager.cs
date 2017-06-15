@@ -44,6 +44,14 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         UpdateTotalRenown();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (Application.platform == RuntimePlatform.Android) Global.MoveTaskToBack();
+        }
+    }
+
     private void InstantiateHeaders()
     {
         GameObject go;
