@@ -36,23 +36,19 @@ public class Item : MonoBehaviour
 
     public void Delete()
     {
+        AppManager am = AppManager.Instance;
+
         if (type == Type.General)
         {
-            AppManager.Instance._generalPool.ReturnGameObject(gameObject);
-            AppManager.Instance._generalPanel.GetChild(0).GetComponentInChildren<Button>().interactable = true;
+            am._generalPool.ReturnGameObject(gameObject);
+            am._generalPanel.GetChild(0).GetComponentInChildren<Button>().interactable = true;
         }
-        else
-        {
-            AppManager.Instance._troopsPool.ReturnGameObject(gameObject);
-        }
+        else am._troopsPool.ReturnGameObject(gameObject);
 
-        for (int i = 0; i < AppManager.Instance._options.Count; i++)
-        {
-            if (AppManager.Instance._options[i].name.Equals(gameObject.name)) AppManager.Instance._options[i].GetComponent<Button>().interactable = true;
-        }
-
-        AppManager.Instance._warscrollsGO.Remove(gameObject);
-        AppManager.Instance.UpdateElementsPositions();
+        am._warscrollsGO.Remove(gameObject);
+        am._usedWarscrolls.Remove(_warscroll);
+        am.UpdateElementsPositions();
+        am.UpdateTotalRenown();
         Debug.Log("Remove warscroll: " + _warscroll._name);
     }
 
