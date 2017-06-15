@@ -4629,6 +4629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5efba807f0679b44864b5d8765d54eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usedWarscrolls: []
   _warscrollsGO: []
   _options: []
   _maxRenown: 25
