@@ -72,11 +72,13 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         {
             go = _generalPool.GetGameObject();
             parent = _generalPanel;
+            DataManager.Instance._currentGeneral = warscroll;
         }
         else
         {
             go = _troopsPool.GetGameObject();
             parent = _troopsPanel;
+            DataManager.Instance._currentWarscrolls.Add(warscroll);
         }
 
         go.transform.SetParent(parent);
@@ -184,7 +186,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         for (int i = 0; i < _warscrollsGO.Count; i++)
         {
             Item item = _warscrollsGO[i].GetComponent<Item>();
-            total += (item._warscroll._cost * item._number);
+            total += (item._warscroll._cost * item._warscroll._number);
         }
 
         _spentRenown = total;

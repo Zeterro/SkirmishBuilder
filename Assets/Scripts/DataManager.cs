@@ -5,17 +5,13 @@ using UnityEngine.UI;
 
 public class DataManager : MonoBehaviourSingleton<DataManager>
 {
-    public Alliance _alliance;
+    [Header("Warband")]
+    public Alliance _currentAlliance;
+    public string _currentFaction;
+    public Warscroll _currentGeneral;
+    public List<Warscroll> _currentWarscrolls = new List<Warscroll>();
 
-    public enum Alliance
-    {
-        Chaos = 0,
-        Order = 1,
-        Destruction = 2,
-        Death = 3
-    }
-
-    [Header("Data")]
+    [Header("Database")]
     public List<Warscroll> _warscrolls = new List<Warscroll>();
     public List<WarscrollDatabase> _warscrollDB = new List<WarscrollDatabase>();
     public List<string> _factionOptions = new List<string>();
@@ -26,7 +22,7 @@ public class DataManager : MonoBehaviourSingleton<DataManager>
 
     public void ChangeAlliance()
     {
-        _alliance = (Alliance)_allianceDrop.value;
+        _currentAlliance = (Alliance)_allianceDrop.value;
         _factionDrop.ClearOptions();
         AddFactionsOptions();
         _factionDrop.value = 0;
@@ -40,7 +36,7 @@ public class DataManager : MonoBehaviourSingleton<DataManager>
         _factionOptions.Add("Select Faction");
         for (int i = 0; i < _warscrollDB.Count; i++)
         {
-            if (_warscrollDB[i]._alliance == _alliance.ToString()) _factionOptions.Add(_warscrollDB[i]._faction);
+            if (_warscrollDB[i]._alliance == _currentAlliance.ToString()) _factionOptions.Add(_warscrollDB[i]._faction);
         }
         _factionDrop.AddOptions(_factionOptions);
     }
@@ -51,7 +47,9 @@ public class DataManager : MonoBehaviourSingleton<DataManager>
         {
             //_warscrolls.Clear();
             _warscrolls = _warscrollDB.Where(arg => arg._faction == _factionOptions[index]).SingleOrDefault()._list;
+            _currentFaction = _warscrollDB.Where(arg => arg._faction == _factionOptions[index]).SingleOrDefault()._faction;
             AppManager.Instance.AddWarscrollOptions(_warscrolls); 
         }
+        else _currentFaction = "";
     }
 }

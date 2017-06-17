@@ -5,7 +5,8 @@ public class Warscroll
     public Type _type;
     public string _id;
     public int _cost;
-    public int _maxNumber;
+    public int _number = 1;
+    public int _maxNumber = 1;
 
     public Warscroll() { }
 

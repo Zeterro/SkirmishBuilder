@@ -3,16 +3,9 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-    public enum Type
-    {
-        General,
-        Warscroll
-    }
-
     [Header("Variables")]
     public Type type;
     public Warscroll _warscroll;
-    public int _number = 1;
 
     [Header("UI")]
     public Text _name;
@@ -23,7 +16,6 @@ public class Item : MonoBehaviour
 
     private void OnEnable()
     {
-        _number = 1;
         UpdateItem();
     }
 
@@ -31,7 +23,7 @@ public class Item : MonoBehaviour
     {
         _name.text = _warscroll._name;
         _cost.text = _warscroll._cost.ToString();
-        if (_numberText != null) _numberText.text = _number + "/" + _warscroll._maxNumber.ToString();
+        if (_numberText != null) _numberText.text = _warscroll._number + "/" + _warscroll._maxNumber.ToString();
     }
 
     public void Delete()
@@ -42,8 +34,13 @@ public class Item : MonoBehaviour
         {
             am._generalPool.ReturnGameObject(gameObject);
             am._generalPanel.GetChild(0).GetComponentInChildren<Button>().interactable = true;
+            DataManager.Instance._currentGeneral = null;
         }
-        else am._troopsPool.ReturnGameObject(gameObject);
+        else
+        {
+            am._troopsPool.ReturnGameObject(gameObject);
+            DataManager.Instance._currentWarscrolls.Remove(_warscroll);
+        }
 
         am._warscrollsGO.Remove(gameObject);
         am._usedWarscrolls.Remove(_warscroll);
@@ -54,9 +51,9 @@ public class Item : MonoBehaviour
 
     public void Add()
     {
-        if (_number < _warscroll._maxNumber && _warscroll._cost + AppManager.Instance._spentRenown <= AppManager.Instance._maxRenown)
+        if (_warscroll._number < _warscroll._maxNumber && _warscroll._cost + AppManager.Instance._spentRenown <= AppManager.Instance._maxRenown)
         {
-            _number++;
+            _warscroll._number++;
             UpdateItem();
             AppManager.Instance.UpdateTotalRenown();
         }
@@ -64,10 +61,10 @@ public class Item : MonoBehaviour
 
     public void Remove()
     {
-        if (_number > 1)
+        if (_warscroll._number > 1)
         {
-            _number--;
-            UpdateItem(); 
+            _warscroll._number--;
+            UpdateItem();
             AppManager.Instance.UpdateTotalRenown();
         }
     }
