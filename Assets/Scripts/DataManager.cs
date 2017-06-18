@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviourSingleton<DataManager>
     [Header("Warband")]
     public Alliance _currentAlliance;
     public string _currentFaction;
-    public Warscroll _currentGeneral;
+    public Warscroll[] _currentGeneral;
     public List<Warscroll> _currentWarscrolls = new List<Warscroll>();
 
     [Header("Database")]

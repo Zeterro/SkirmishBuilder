@@ -16,7 +16,7 @@ public class XMLManager : MonoBehaviour
 
         for (int i = 0; i < database.Length; i++)
         {
-            Debug.Log("Loaded: " + database[i].name);
+            Debug.Log("Loaded database: " + database[i].name);
             var reader = new StringReader(database[i].text);
             DataManager.Instance._warscrollDB.Add(serializer.Deserialize(reader) as WarscrollDatabase);
         }

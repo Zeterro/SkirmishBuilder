@@ -1,36 +1,54 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SaveLoadManager : MonoBehaviourSingleton<SaveLoadManager>
 {
-    public GameObject _savePromptPanel;
-    public InputField _textInput;
+    private DirectoryInfo _dirInfo;
+
+    [Header("General")]
+    public List<string> _saveNames = new List<string>();
+    public List<GameObject> _saveObjects = new List<GameObject>();
     public string _saveName = "";
+    public GameObject _loadPanel;
+
+    [Header("Prefabs")]
+    public GameObject _loadPrefab;
+
+    [Header("UI")]
+    public GameObject _savePromptPanel;
+    public GameObject _loadPromptPanel;
+    public InputField _textInput;
+
+    [HideInInspector]
+    public string _savesPath = "";
+    public Pool _loadOptionsPool;
 
     private void Awake()
     {
-        string path = Application.persistentDataPath + "/saves";
-        if (!Directory.Exists(path)) Directory.CreateDirectory(path); 
+        _savesPath = Application.persistentDataPath + "/saves";
+        if (!Directory.Exists(_savesPath)) Directory.CreateDirectory(_savesPath);
     }
 
     private void Start()
     {
+        _dirInfo = new DirectoryInfo(_savesPath);
+        _loadOptionsPool = new Pool(_loadPrefab, _loadPanel.transform.parent.gameObject, 10);
+
         _savePromptPanel.SetActive(false);
+        _loadPromptPanel.SetActive(false);
     }
 
     public void Save()
     {
         if (!_saveName.Equals(""))
         {
-            string path = Application.persistentDataPath + "/saves/";
+            string rawPath = _savesPath + "/" + _saveName + ".skir";
 
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream stream = new FileStream(path + _saveName + ".skir", FileMode.Create);
+            FileStream stream = new FileStream(rawPath, FileMode.Create);
 
             Warband data = new Warband();
 
@@ -39,7 +57,8 @@ public class SaveLoadManager : MonoBehaviourSingleton<SaveLoadManager>
 
             UpdateSaveName();
             TogglePromptPanel();
-            Debug.Log(path); 
+
+            Debug.Log("Warband saved: " + rawPath);
         }
         else
         {
@@ -58,13 +77,66 @@ public class SaveLoadManager : MonoBehaviourSingleton<SaveLoadManager>
         _savePromptPanel.SetActive(!_savePromptPanel.activeSelf);
     }
 
+    public void OpenLoadPanel()
+    {
+        _loadPromptPanel.SetActive(true);
+        UpdateLoadList();
+    }
+
+    public void UpdateLoadList()
+    {
+        FileInfo[] fileInfo = _dirInfo.GetFiles();
+
+        foreach (FileInfo file in fileInfo)
+        {
+            string rawFileName = file.Name;
+            string fileName = Path.GetFileNameWithoutExtension(file.Name);
+
+            if (!_saveNames.Contains(fileName))
+            {
+                GameObject go = _loadOptionsPool.GetGameObject();
+                go.transform.SetParent(_loadPanel.transform);
+                go.transform.localScale = new Vector3(1, 1, 1);
+                go.name = fileName;
+
+                LoadItem li = go.GetComponent<LoadItem>();
+                li._rawFileName = rawFileName;
+                li.UpdateOption();
+
+                _saveObjects.Add(go);
+                _saveNames.Add(fileName);
+
+                Debug.Log("Save in memory: " + Path.GetFileNameWithoutExtension(file.Name));
+            }
+        }
+    }
+
     public void UpdateSaveName()
     {
         _saveName = _textInput.text;
     }
 
-    public void Load()
+    public void Load(string fileName)
     {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream stream = new FileStream(_savesPath + "/" + fileName, FileMode.Open);
 
+        Warband data = bf.Deserialize(stream) as Warband;
+
+        _loadPromptPanel.SetActive(false);
+
+        AppManager.Instance.UpdateMaxRenown(data._maxRenown);
+
+        for (int i = 0; i < data._general.Length; i++)
+        {
+            AppManager.Instance.AddElement(data._general[i], Type.General);
+        }
+
+        for (int i = 0; i < data._warscrolls.Length; i++)
+        {
+            AppManager.Instance.AddElement(data._warscrolls[i], Type.Warscroll);
+        }
+
+        Debug.Log("Loaded save: " + fileName);
     }
 }

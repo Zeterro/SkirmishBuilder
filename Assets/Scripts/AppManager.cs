@@ -72,7 +72,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         {
             go = _generalPool.GetGameObject();
             parent = _generalPanel;
-            DataManager.Instance._currentGeneral = warscroll;
+            DataManager.Instance._currentGeneral = new Warscroll[] { warscroll };
         }
         else
         {
@@ -193,13 +193,21 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _totalText.text = _spentRenown + "/";
     }
 
-    public void UpdateMaxRenown()
+    public void UpdateMaxRenown(int value = -1)
     {
-        if (_maxRenownInput.text != "")
+        if (value == -1)
         {
-            _maxRenown = int.Parse(_maxRenownInput.text);
+            if (_maxRenownInput.text != "")
+            {
+                _maxRenown = int.Parse(_maxRenownInput.text);
+            }
+            else _maxRenown = 0; 
         }
-        else _maxRenown = 0;
+        else
+        {
+            _maxRenown = value;
+            _maxRenownInput.text = value.ToString();
+        }
         Debug.Log("Changed max renown to: " + _maxRenown);
     }
 }
