@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Order" Faction="Sylvaneth">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Dryads</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Kurnoth Hunters</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>3</_maxNumber>
+      <_cost>15</_cost>
+    </Warscroll>
+     <Warscroll>
+      <_name>Spite-Revenants</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>3</_cost>
+    </Warscroll>
+     <Warscroll>
+      <_name>Tree-Revenants</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>3</_cost>
+    </Warscroll>
+     <Warscroll>
+      <_name>Branchwych</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>
