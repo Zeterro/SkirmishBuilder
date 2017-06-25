@@ -15,3 +15,8 @@ public enum Alliance
     Destruction = 2,
     Death = 3
 }
+
+public enum AppState
+{
+    Home = 0
+}

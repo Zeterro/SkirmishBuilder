@@ -33,3 +33,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Assets/StreamingAssets/build_info.txt
+Assets/Images/References
+Assets/Images/References.meta
