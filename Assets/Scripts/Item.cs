@@ -16,6 +16,7 @@ public class Item : MonoBehaviour
 
     private void OnEnable()
     {
+        _warscroll._number = 0;
         UpdateItem();
     }
 
