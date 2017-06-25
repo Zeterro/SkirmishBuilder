@@ -108,7 +108,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
 
     public void ClearAllElements()
     {
-        for (int i = _warscrollsGO.Count - 1; i >= 0 ; i--)
+        for (int i = _warscrollsGO.Count - 1; i >= 0; i--)
         {
             _warscrollsGO[i].GetComponent<Item>().Delete();
         }
@@ -193,6 +193,16 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         _totalText.text = _spentRenown + "/";
     }
 
+    public void UpdateMaxRenown()
+    {
+        if (_maxRenownInput.text != "")
+        {
+            _maxRenown = int.Parse(_maxRenownInput.text);
+        }
+        else _maxRenown = 0;
+        Debug.Log("Changed max renown to: " + _maxRenown);
+    }
+
     public void UpdateMaxRenown(int value = -1)
     {
         if (value == -1)
@@ -201,7 +211,7 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
             {
                 _maxRenown = int.Parse(_maxRenownInput.text);
             }
-            else _maxRenown = 0; 
+            else _maxRenown = 0;
         }
         else
         {
