@@ -30,17 +30,18 @@ public class Item : MonoBehaviour
     public void Delete()
     {
         AppManager am = AppManager.Instance;
+        DataManager dm = DataManager.Instance;
 
         if (type == Type.General)
         {
             am._generalPool.ReturnGameObject(gameObject);
             am._generalPanel.GetChild(0).GetComponentInChildren<Button>().interactable = true;
-            DataManager.Instance._currentGeneral = null;
+            dm._warband._general = null;
         }
         else
         {
             am._troopsPool.ReturnGameObject(gameObject);
-            DataManager.Instance._currentWarscrolls.Remove(_warscroll);
+            dm._warband._warscrolls.Remove(_warscroll);
         }
 
         am._warscrollsGO.Remove(gameObject);
@@ -52,7 +53,7 @@ public class Item : MonoBehaviour
 
     public void Add()
     {
-        if (_warscroll._number < _warscroll._maxNumber && _warscroll._cost + AppManager.Instance._spentRenown <= AppManager.Instance._maxRenown)
+        if (_warscroll._number < _warscroll._maxNumber && _warscroll._cost + DataManager.Instance._spentRenown <= DataManager.Instance._warband._maxRenown)
         {
             _warscroll._number++;
             UpdateItem();

@@ -1352,11 +1352,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1231783973}
     m_Modifications:
-    - target: {fileID: 114007808349656054, guid: 2f1a3ca09f1595440941edb06864a146,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224821649983010570, guid: 2f1a3ca09f1595440941edb06864a146,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -1446,35 +1441,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1347671985003546, guid: 2f1a3ca09f1595440941edb06864a146, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007808349656054, guid: 2f1a3ca09f1595440941edb06864a146,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007808349656054, guid: 2f1a3ca09f1595440941edb06864a146,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007808349656054, guid: 2f1a3ca09f1595440941edb06864a146,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1652710971}
-    - target: {fileID: 114007808349656054, guid: 2f1a3ca09f1595440941edb06864a146,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Load
-      objectReference: {fileID: 0}
-    - target: {fileID: 114007808349656054, guid: 2f1a3ca09f1595440941edb06864a146,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f1a3ca09f1595440941edb06864a146, type: 2}
@@ -3212,15 +3178,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6ab8b02d3374647b015f3833f443f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentAlliance: 0
-  _currentFaction: 
-  _currentGeneral: []
-  _currentWarscrolls: []
+  _warband:
+    _allegiance: 0
+    _maxRenown: 0
+    _general: []
+    _warscrolls: []
   _warscrolls: []
   _warscrollDB: []
   _factionOptions: []
+  _currentAlliance: 0
+  _currentFaction: 
+  _spentRenown: 0
   _allianceDrop: {fileID: 1675387605}
   _factionDrop: {fileID: 420032758}
+  _maxRenownInput: {fileID: 966015191}
 --- !u!1 &629546420
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,7 +4431,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1573116118}
+      - m_Target: {fileID: 620950762}
         m_MethodName: UpdateMaxRenown
         m_Mode: 1
         m_Arguments:
@@ -6751,8 +6722,6 @@ MonoBehaviour:
   _usedWarscrolls: []
   _warscrollsGO: []
   _options: []
-  _maxRenown: 25
-  _spentRenown: 0
   _generalPrefab: {fileID: 1682593507608548, guid: 52b13bccc4f287c4cb435704d4f58b1d,
     type: 2}
   _generalHeaderPrefab: {fileID: 1056458859359190, guid: 221b6a735f6242748b619517c1a99b4b,
@@ -6887,12 +6856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f0e67876709154ca71a05c410076b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1652710971 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114534785417916410, guid: 2f1a3ca09f1595440941edb06864a146,
-    type: 2}
-  m_PrefabInternal: {fileID: 248741049}
-  m_Script: {fileID: 11500000, guid: 77bcef526b5798c4e902bbfe793000fa, type: 3}
 --- !u!1 &1663805869
 GameObject:
   m_ObjectHideFlags: 0
@@ -8294,7 +8257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.12941177, g: 0.18039216, b: 0.227451, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -8,8 +8,6 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public List<Warscroll> _usedWarscrolls = new List<Warscroll>();
     public List<GameObject> _warscrollsGO = new List<GameObject>();
     public List<GameObject> _options = new List<GameObject>();
-    public int _maxRenown;
-    public int _spentRenown;
 
     [Header("Prefabs")]
     public GameObject _generalPrefab;
@@ -33,6 +31,12 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
     public Pool _generalPool;
     public Pool _troopsPool;
     public Pool _optionsPool;
+
+    private void Awake()
+    {
+        Color color = HexColor(33, 46, 58, 255);
+        SetupAndroidTheme(ToARGB(color), ToARGB(color));
+    }
 
     private void Start()
     {
@@ -72,13 +76,13 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
         {
             go = _generalPool.GetGameObject();
             parent = _generalPanel;
-            DataManager.Instance._currentGeneral = new Warscroll[] { warscroll };
+            DataManager.Instance._warband._general = new List<Warscroll>() { warscroll };
         }
         else
         {
             go = _troopsPool.GetGameObject();
             parent = _troopsPanel;
-            DataManager.Instance._currentWarscrolls.Add(warscroll);
+            DataManager.Instance._warband._warscrolls.Add(warscroll);
         }
 
         go.transform.SetParent(parent);
@@ -189,35 +193,51 @@ public class AppManager : MonoBehaviourSingleton<AppManager>
             total += (item._warscroll._cost * item._warscroll._number);
         }
 
-        _spentRenown = total;
-        _totalText.text = _spentRenown + "/";
+        DataManager.Instance._spentRenown = total;
+        _totalText.text = DataManager.Instance._spentRenown + "/";
     }
 
-    public void UpdateMaxRenown()
+    private void SetupAndroidTheme(int primaryARGB, int darkARGB, string label = null)
     {
-        if (_maxRenownInput.text != "")
+#if UNITY_ANDROID && !UNITY_EDITOR
+        label = label ?? Application.productName;
+        Screen.fullScreen = false;
+        AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+        activity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
         {
-            _maxRenown = int.Parse(_maxRenownInput.text);
-        }
-        else _maxRenown = 0;
-        Debug.Log("Changed max renown to: " + _maxRenown);
-    }
-
-    public void UpdateMaxRenown(int value = -1)
-    {
-        if (value == -1)
-        {
-            if (_maxRenownInput.text != "")
+            AndroidJavaClass layoutParamsClass = new AndroidJavaClass("android.view.WindowManager$LayoutParams");
+            int flagFullscreen = layoutParamsClass.GetStatic<int>("FLAG_FULLSCREEN");
+            int flagNotFullscreen = layoutParamsClass.GetStatic<int>("FLAG_FORCE_NOT_FULLSCREEN");
+            int flagDrawsSystemBarBackgrounds = layoutParamsClass.GetStatic<int>("FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS");
+            AndroidJavaObject windowObject = activity.Call<AndroidJavaObject>("getWindow");
+            windowObject.Call("clearFlags", flagFullscreen);
+            windowObject.Call("addFlags", flagNotFullscreen);
+            windowObject.Call("addFlags", flagDrawsSystemBarBackgrounds);
+            int sdkInt = new AndroidJavaClass("android.os.Build$VERSION").GetStatic<int>("SDK_INT");
+            int lollipop = 21;
+            if (sdkInt > lollipop)
             {
-                _maxRenown = int.Parse(_maxRenownInput.text);
+                windowObject.Call("setStatusBarColor", darkARGB);
+                string myName = activity.Call<string>("getPackageName");
+                AndroidJavaObject packageManager = activity.Call<AndroidJavaObject>("getPackageManager");
+                AndroidJavaObject drawable = packageManager.Call<AndroidJavaObject>("getApplicationIcon", myName);
+                AndroidJavaObject taskDescription = new AndroidJavaObject("android.app.ActivityManager$TaskDescription", label, drawable.Call<AndroidJavaObject>("getBitmap"), primaryARGB);
+                activity.Call("setTaskDescription", taskDescription);
             }
-            else _maxRenown = 0;
-        }
-        else
-        {
-            _maxRenown = value;
-            _maxRenownInput.text = value.ToString();
-        }
-        Debug.Log("Changed max renown to: " + _maxRenown);
+        }));
+#endif
+    }
+
+    private int ToARGB(Color color)
+    {
+        Color32 c = (Color32)color;
+        byte[] b = new byte[] { c.b, c.g, c.r, c.a };
+        return System.BitConverter.ToInt32(b, 0);
+    }
+
+    private Vector4 HexColor(float r, float g, float b, float a)
+    {
+        Vector4 color = new Vector4(r / 255, g / 255, b / 255, a / 255);
+        return color;
     }
 }

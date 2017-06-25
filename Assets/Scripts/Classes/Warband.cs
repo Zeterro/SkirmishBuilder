@@ -1,20 +1,15 @@
-﻿[System.Serializable]
+﻿using System.Collections.Generic;
+
+[System.Serializable]
 public class Warband
 {
-    public Alliance _alliance;
-    public string _faction;
+    public Alliance _allegiance;
     public int _maxRenown;
-    public Warscroll[] _general;
-    public Warscroll[] _warscrolls;
+    public List<Warscroll> _general = new List<Warscroll>();
+    public List<Warscroll> _warscrolls = new List<Warscroll>();
 
     public Warband()
     {
-        DataManager dm = DataManager.Instance;
-        AppManager am = AppManager.Instance;
-        _alliance = dm._currentAlliance;
-        _faction = dm._currentFaction;
-        _maxRenown = am._maxRenown;
-        _general = dm._currentGeneral;
-        _warscrolls = dm._currentWarscrolls.ToArray();
+        
     }
 }

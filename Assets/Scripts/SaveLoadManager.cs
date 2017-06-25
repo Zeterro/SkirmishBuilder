@@ -50,7 +50,7 @@ public class SaveLoadManager : MonoBehaviourSingleton<SaveLoadManager>
             BinaryFormatter bf = new BinaryFormatter();
             FileStream stream = new FileStream(rawPath, FileMode.Create);
 
-            Warband data = new Warband();
+            Warband data = DataManager.Instance._warband;
 
             bf.Serialize(stream, data);
             stream.Close();
@@ -126,14 +126,14 @@ public class SaveLoadManager : MonoBehaviourSingleton<SaveLoadManager>
 
         _loadPromptPanel.SetActive(false);
 
-        AppManager.Instance.UpdateMaxRenown(data._maxRenown);
+        DataManager.Instance.UpdateMaxRenown(data._maxRenown);
 
-        for (int i = 0; i < data._general.Length; i++)
+        for (int i = 0; i < data._general.Count; i++)
         {
             AppManager.Instance.AddElement(data._general[i], Type.General);
         }
 
-        for (int i = 0; i < data._warscrolls.Length; i++)
+        for (int i = 0; i < data._warscrolls.Count; i++)
         {
             AppManager.Instance.AddElement(data._warscrolls[i], Type.Warscroll);
         }

@@ -23,8 +23,7 @@ public class Option : MonoBehaviour
 
     public void UpdateOptionAvailability()
     {
-        AppManager am = AppManager.Instance;
-        if (am._usedWarscrolls.Contains(_warscroll) || (_warscroll._cost + am._spentRenown >= am._maxRenown)) _button.interactable = false;
+        if (AppManager.Instance._usedWarscrolls.Contains(_warscroll) || (_warscroll._cost + DataManager.Instance._spentRenown >= DataManager.Instance._warband._maxRenown)) _button.interactable = false;
         else _button.interactable = true;
     }
 }
