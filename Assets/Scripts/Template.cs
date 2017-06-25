@@ -7,7 +7,7 @@ public class Template : MonoBehaviour
 
     public RectTransform _header;
 
-    private void Start()
+    private void Awake()
     {
         _rt = GetComponent<RectTransform>();
         _rt.position = new Vector2(_header.position.x, _header.position.y);
