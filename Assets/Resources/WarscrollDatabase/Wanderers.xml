@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Order" Faction="Wanderers">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Glade guard</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Nomad Prince</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Eternal Guard</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Sisters of the Thorn</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>5</_maxNumber>
+      <_cost>9</_cost>
+    </Warscroll>
+     <Warscroll>
+      <_name>Sisters of the Watch</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>4</_cost>
+    </Warscroll>
+     <Warscroll>
+      <_name>Wildwood Rangers</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>4</_cost>
+    </Warscroll>
+     <Warscroll>
+      <_name>Wilds Riders</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>5</_maxNumber>
+      <_cost>6</_cost>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>
