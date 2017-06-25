@@ -27,6 +27,10 @@ public class LoadItem : MonoBehaviour
     public void UpdateOption()
     {
         _text.text = gameObject.name;
-        _loadButton.onClick.AddListener(() => SaveLoadManager.Instance.Load(_rawFileName));
+    }
+
+    public void Load()
+    {
+        SaveLoadManager.Instance.Load(_rawFileName);
     }
 }

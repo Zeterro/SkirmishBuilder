@@ -122,6 +122,7 @@ public class SaveLoadManager : MonoBehaviourSingleton<SaveLoadManager>
         FileStream stream = new FileStream(_savesPath + "/" + fileName, FileMode.Open);
 
         Warband data = bf.Deserialize(stream) as Warband;
+        stream.Close();
 
         _loadPromptPanel.SetActive(false);
 
