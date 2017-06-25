@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Order" Faction="Swifthawk agents">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Reavers</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>5</_maxNumber>
+      <_cost>6</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Chariot</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Shadows Wariiors</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>4</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Skycutter</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>24</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Spireguard</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>
