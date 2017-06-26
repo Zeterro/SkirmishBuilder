@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Order" Faction="Fireslayers">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Vulkite Berserkers</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Auric Runefather</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Auric Runemaster</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Auric Runesmiter</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Auric Runeson</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Battlesmith</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Doomseeker</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Auric Hearthguard</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>3</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Hearthguard Bezerkers</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>3</_cost>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>
