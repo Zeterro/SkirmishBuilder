@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Order" Faction="Kharadron overlords">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Arkanaut Company</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Aether-Khemist</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>20</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Aetheric Navigator</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>20</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Arkanaut Admiral</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>28</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Endrinmaster</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Endrinriggers</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>3</_maxNumber>
+      <_cost>8</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Grundstok Thunderers</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>4</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Skywardens</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>3</_maxNumber>
+      <_cost>7</_cost>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>
