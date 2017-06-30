@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WarscrollDatabase Alliance="Order" Faction="Seraphon">
+  <Warscrolls>
+    <Warscroll>
+      <_name>Saurus Warriors</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>2</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Skinks</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>20</_maxNumber>
+      <_cost>1</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Saurus Oldblood</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>24</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Skink Starpriest</_name>
+      <_type>General</_type>
+      <_maxNumber>1</_maxNumber>
+      <_cost>16</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Ripperdactyl Riders</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>3</_maxNumber>
+      <_cost>9</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Saurus Guard</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>10</_maxNumber>
+      <_cost>4</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Saurus Knights</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>5</_maxNumber>
+      <_cost>4</_cost>
+    </Warscroll>
+    <Warscroll>
+      <_name>Terradon Riders</_name>
+      <_type>Warscroll</_type>
+      <_maxNumber>3</_maxNumber>
+      <_cost>8</_cost>
+    </Warscroll>
+  </Warscrolls>
+</WarscrollDatabase>
